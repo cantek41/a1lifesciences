@@ -9,7 +9,7 @@
 
 ### Q2 Phred Score
 
-![](img/gscores.gif)
+![](img/qscores.gif)
 
 
 ![](img/pscore.jpg)
