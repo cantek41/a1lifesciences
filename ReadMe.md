@@ -14,21 +14,21 @@
 
 ![](img/pscore.jpg)
 
-'''javascript
+```python
 def calc_q(p):
     return int(-10*math.log10(p))
-'''
+```
 
 biopython [Link] https://biopython.org/
 
-'''javascript
+```python
 l=[] 
 for fasta in fasta_sequences:
         name, sequence,ann = fasta.id, str(fasta.seq), fasta.annotations
         print(fasta.letter_annotations["phred_quality"])
         l.append(fasta.letter_annotations["phred_quality"])
         print("========")
-'''
+```
 ![](img/q2.png)
 
 ### Q3 Machine Learning Predict
