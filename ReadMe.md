@@ -1,4 +1,4 @@
-## A1 Life Science interview
+## A1 Life Sciences interview
 
 
 ### Q1 DNA animation with threeJS
