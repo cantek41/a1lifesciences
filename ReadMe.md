@@ -4,13 +4,13 @@
 ### Q1 DNA animation with threeJS
 
 - Read DNA sequence from text
-- Create dna sequence pairs
-- virtulaize with threeJS
+- Create DNA sequence pairs
+- Virtulaize with threeJS
 
 - Adenine --> purple ball
 - Thymine --> red ball
 - Guanine --> green ball
-- cytosine --> orange ball
+- Cytosine --> orange ball
 
 ![](img/q1.png)
 
@@ -48,15 +48,16 @@ for fasta in fasta_sequences:
   Age_group, R2: from Stability of Body Weight in Type 2 Diabetes [Link] https://www.researchgate.net/figure/Weight-changes-with-different-treatment-modalities-Data-are-presented-as-means-SE_fig3_7273156
   R2=-0.04*Age+2.5 
 - Data Standardization 
-- train
+- Sperate data, test=0.10
+- Train, accuracy test data = 0.77
 
 #### Predict
 - Web app, send data to Flask Api
 - Data Process, create new feature
 - Load scaler and model
 - Data Standardization 
-- predict
-- return result
+- Predict
+- Return result
 - Web app, show response
 
 ![](img/q3_02_.png)
