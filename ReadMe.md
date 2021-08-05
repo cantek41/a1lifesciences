@@ -32,9 +32,11 @@ for fasta in fasta_sequences:
 ![](img/q2.png)
 
 ### Q3 Machine Learning Predict
+
+![](img/q3_02_.png)
+
 ![](img/q3.PNG)
 
-![](img/q3_02.png)
 
 
 ### Q4 My solutions, i am proud of
