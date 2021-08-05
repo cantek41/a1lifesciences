@@ -1,0 +1,167 @@
+<html>
+<body>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9353/Detector.js"></script>
+	<script type="text/javascript">
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+		var renderer = Detector.webgl? new THREE.WebGLRenderer( { antialias: true } ): new THREE.CanvasRenderer();
+
+		var blue = 0x82cdf0;
+		var yellow = 0xfff0b4;
+		var purple = 0x82466e;
+		var green = 0x44bb22;
+		var red = 0xbb2222;
+		var orange = 0xffaa22;
+
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		camera.position.z = 50;
+
+		var tubeGeometry = new THREE.CylinderGeometry(0.3,0.3,6,32);
+		var ballGeometry = new THREE.SphereGeometry(0.8,32,32);
+		var blueMaterial = new THREE.MeshBasicMaterial( { color: blue } );
+		var yellowMaterial = new THREE.MeshBasicMaterial( { color: yellow } );
+
+		var a_Material = new THREE.MeshBasicMaterial( { color: purple } );
+		var g_Material = new THREE.MeshBasicMaterial( { color: green } );
+		var c_Material = new THREE.MeshBasicMaterial( { color: orange } );
+		var t_Material = new THREE.MeshBasicMaterial( { color: red } );
+
+		var dna = new THREE.Object3D();
+		var holder = new THREE.Object3D();
+
+	text="GTGCCTGTTAAACCAACACCTGTGCCTGTAAAACTGAGGATCTGAAAACTT"
+	for (var i = 0; i <= text.length; i++) {
+		var blueTube = new THREE.Mesh(tubeGeometry, blueMaterial);
+		blueTube.rotation.z = 90 * Math.PI/180; 
+		blueTube.position.x = -3;
+
+		var yellowTube = new THREE.Mesh(tubeGeometry, yellowMaterial );
+		yellowTube.rotation.z = 90 * Math.PI/180;
+		yellowTube.position.x = 3;
+		
+		switch(text[i]) {
+		  case "A":
+		    var ballRight = new THREE.Mesh( ballGeometry, a_Material );
+			ballRight.position.x = 6;
+
+			var ballLeft = new THREE.Mesh( ballGeometry, t_Material );
+			ballLeft.position.x = -6;
+		    break;
+		  case "T":
+		    var ballRight = new THREE.Mesh( ballGeometry, t_Material );
+			ballRight.position.x = 6;
+
+			var ballLeft = new THREE.Mesh( ballGeometry, a_Material );
+			ballLeft.position.x = -6;
+		    break;
+		  case "G":
+		    var ballRight = new THREE.Mesh( ballGeometry, g_Material );
+			ballRight.position.x = 6;
+
+			var ballLeft = new THREE.Mesh( ballGeometry, c_Material );
+			ballLeft.position.x = -6;
+		    break;
+		  case "C":
+		    var ballRight = new THREE.Mesh( ballGeometry, c_Material );
+			ballRight.position.x = 6;
+
+			var ballLeft = new THREE.Mesh( ballGeometry, g_Material );
+			ballLeft.position.x = -6;
+		    break;    
+		  default:		
+		    
+		}
+
+		
+
+		var row = new THREE.Object3D();
+		row.add(blueTube);
+		row.add(yellowTube);
+		row.add(ballRight);
+		row.add(ballLeft);
+
+		row.position.y = i*2;
+		row.rotation.y = 30*i * Math.PI/180;
+
+		dna.add(row);
+
+	};
+
+
+	dna.position.y = -40;
+
+	scene.add(dna);
+
+	dna.position.y = -40;
+	holder.add(dna)
+	scene.add(holder);
+
+	var CubeConfigData = function() {
+		this.zoom = 20;
+	};
+
+	var view = new CubeConfigData();
+	var gui = new dat.GUI();
+	gui.close();
+
+	gui.add(view, 'zoom', 0, 50 ).onChange( function(value) {
+		camera.position.z = value;
+	});
+
+	var direction=0;
+	function buttonFunction(direc) {
+	    if (direc==0){
+			direction =1;
+		}else{
+			direction =0;
+
+		}
+	}
+
+
+	var render = function () {
+
+		requestAnimationFrame(render);
+
+		//holder.rotation.x += 0.01;
+		if (direction==0){
+			holder.rotation.y -= 0.01;
+		}else{
+			holder.rotation.y += 0.01;
+		}
+		
+		renderer.render(scene, camera);
+	}
+
+render();
+	</script>
+	<style type="text/css">
+		canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		background-color: #888888;
+		}
+		.button {
+		  position: absolute;
+		  left: 10px;
+		  top: 10px;
+		  padding: 10px;
+		  background: rgba(0,0,0,0.9);
+		  color: white;
+		  border: 1px solid gray;
+		  cursor: pointer;
+		}
+
+	</style>
+	<button class="button" style="left: 10px;" type="button" onclick="buttonFunction(1)">Left</button>
+	<button class="button" style="left: 50px;" type="button" onclick="buttonFunction(0)">Right</button>
+	</body>
+</html>

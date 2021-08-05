@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A1 Science</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<style type="text/css">
+		body {
+		  margin: 0;
+		  padding: 0;
+		  background-color: #17a2b8;
+		  height: 100vh;
+		}
+		#login .container #login-row #login-column #login-box {
+		  margin-top: 120px;
+		  max-width: 600px;
+		  height: 320px;
+		  border: 1px solid #9C9C9C;
+		  background-color: #EAEAEA;
+		}
+		#login .container #login-row #login-column #login-box #login-form {
+		  padding: 20px;
+		}
+		#login .container #login-row #login-column #login-box #login-form #register-link {
+		  margin-top: -85px;
+		}
+	</style>
+	<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+</head>
+<body>
+
+	 <div id="login">        
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <div id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Please input the values</h3>
+                            <div class="form-group">
+                                <label for="Age" class="text-info">Age:</label><br>
+                                <input type="text" name="Age" id="Age" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Weight" class="text-info">Weight:</label><br>
+                                <input type="text" name="Weight" id="Weight" class="form-control">
+                            </div>
+                            <div class="form-group mt-2">                               
+                                <input type="button" name="submit" class="btn btn-info btn-md" value="submit" onclick="sendData()">
+                            </div>                           
+                        </div>
+                        <div id="chart" style="width: 100%; height: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<script>
+		//data = "{\"data\":[5,45]}";		
+
+		var settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": "http://127.0.0.1:5000/predict",
+		  "method": "POST",
+		  "headers": {
+		    "content-type": "application/json",
+		    "cache-control": "no-cache",
+		    "postman-token": "553f0740-8d4c-ab05-bb02-44be10ae68ea"
+		  },
+		  "processData": false,
+		 // "data":data// "{\"data\":[5,45]}"
+		}
+
+		sendData = function(){
+			age = parseInt($("#Age").val());
+			weight = parseInt($("#Weight").val());
+			settings["data"]= JSON.stringify( {"data":[age,weight]}); //"{\"data\":[5,45]}";	
+			console.log(settings["data"])
+			$.ajax(settings).done(function (response) {
+		  		
+
+		  		  var data = {
+		            header: ["Healthy", "Probability"],
+		            rows: [
+		              ["Yes", response["Yes"]],
+		              ["No", response["No"]]		              
+		        	]};
+
+		        	var chart = anychart.bar();
+ 
+			        // add the data
+			        chart.data(data);
+			 
+			        // set the chart title
+			        chart.title("Predict Yes: "+response["Yes"].toFixed(2)+" No:"+response["No"].toFixed(2));
+			 
+			        // draw
+			        chart.container("chart");
+			        chart.draw();
+
+			});
+		}
+
+		
+	</script>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>
