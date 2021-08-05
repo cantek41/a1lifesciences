@@ -3,6 +3,15 @@
 
 ### Q1 DNA animation with threeJS
 
+- Read DNA sequence from text
+- Create dna sequence pairs
+- virtulaize with threeJS
+
+- Adenine --> purple ball
+- Thymine --> red ball
+- Guanine --> green ball
+- cytosine --> orange ball
+
 ![](img/q1.png)
 
 
@@ -32,6 +41,21 @@ for fasta in fasta_sequences:
 ![](img/q2.png)
 
 ### Q3 Machine Learning Predict
+
+#### Training
+- Read data from csv
+- Data Process, create new feature
+- Data Standardization 
+- train
+
+#### Predict
+- Web app, send data to Flask Api
+- Data Process, create new feature
+- Load scaler and model
+- Data Standardization 
+- predict
+- return result
+- Web app, show response
 
 ![](img/q3_02_.png)
 
