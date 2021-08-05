@@ -45,6 +45,8 @@ for fasta in fasta_sequences:
 #### Training
 - Read data from csv
 - Data Process, create new feature
+  Age_group, R2: from Stability of Body Weight in Type 2 Diabetes [Link] https://www.researchgate.net/figure/Weight-changes-with-different-treatment-modalities-Data-are-presented-as-means-SE_fig3_7273156
+  R2=-0.04*Age+2.5 
 - Data Standardization 
 - train
 
