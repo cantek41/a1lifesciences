@@ -60,7 +60,7 @@ for fasta in fasta_sequences:
 - Return result
 - Web app, show response
 
-![](img/q3_02_.png)
+![](img/q3_02.png)
 
 ![](img/q3.PNG)
 
